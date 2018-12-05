@@ -1,0 +1,13 @@
+---
+# tasks file for roles/web-server
+
+- name: Install Apache
+  apt:
+    name: apache2
+    state: latest
+
+- name: Ensure Apache starts
+  service:
+    name: apache2
+    state: started
+    enabled: yes

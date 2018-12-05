@@ -1,0 +1,9 @@
+# vars file for roles/base-server
+
+apt_packages:
+  - python-pip
+
+
+pip_packages:
+  - boto3
+  - botocore

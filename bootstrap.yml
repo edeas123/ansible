@@ -1,0 +1,13 @@
+- hosts: all
+  remote_user: ubuntu
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Check if python is installed at /usr/bin/python
+      raw: /usr/bin/python --version
+      ignore_errors: true
+      register: python_installed
+
+    - name: Install python
+      raw: apt-get -y install python
+      when: python_installed

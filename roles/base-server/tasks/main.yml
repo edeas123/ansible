@@ -1,0 +1,18 @@
+---
+# tasks file for roles/base-server
+
+- name: Install aptitude
+  apt:
+    name: aptitude
+    force_apt_get: yes
+
+- name: Install apt packages
+  apt:
+    name: "{{ apt_packages }}"
+    state: latest
+    update_cache: true
+
+- name: Install pip packages
+  pip:
+    name: "{{ pip_packages }}"
+    state: latest

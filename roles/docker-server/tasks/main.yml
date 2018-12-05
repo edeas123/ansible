@@ -1,0 +1,32 @@
+---
+# tasks file for roles/docker-server
+
+- name: Install apt packages
+  apt:
+    name: "{{ apt_packages }}"
+    state: latest
+    update_cache: yes
+
+- name: Retrieve the official key
+  apt_key:
+    id: "{{ docker_fingerprint }}"
+    url: "{{ docker_key_url }}"
+    state: present
+  register: 'repository_key'
+
+- name: Setup the stable docker repository
+  apt_repository:
+    repo: "{{ docker_apt_repository }}"
+    state: present
+    update_cache: yes
+
+- name: Install Docker
+  apt: 
+    name: docker-ce
+    state: latest
+
+- name: Ensure Docker starts
+  service:
+    name: docker
+    state: started
+    enabled: yes
