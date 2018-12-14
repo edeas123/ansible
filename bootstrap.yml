@@ -3,11 +3,11 @@
   become: true
   gather_facts: false
   tasks:
-    - name: Check if python is installed at /usr/bin/python
-      raw: /usr/bin/python --version
+    - name: Check if python is installed at /usr/bin/python3
+      raw: /usr/bin/python3 --version
       ignore_errors: true
-      register: python_installed
+      register: python3_installed
 
-    - name: Install python
-      raw: apt-get -y install python
-      when: python_installed
+    - name: Install python3
+      raw: apt-get -y install python3
+      when: python3_installed
