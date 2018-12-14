@@ -1,0 +1,5 @@
+# vars file for roles/aws-node
+
+pip_packages:
+  - boto3
+  - botocore

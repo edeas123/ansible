@@ -11,8 +11,3 @@
     name: "{{ apt_packages }}"
     state: latest
     update_cache: true
-
-- name: Install pip packages
-  pip:
-    name: "{{ pip_packages }}"
-    state: latest

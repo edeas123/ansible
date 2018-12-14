@@ -1,0 +1,6 @@
+---
+# tasks file for roles/aws-node
+- name: Install aws required pip packages
+  pip:
+    name: "{{ pip_packages }}"
+    state: latest
