@@ -1,0 +1,42 @@
+---
+# tasks file for supervisor
+- name: Install supervisord
+  easy_install:
+    name: supervisor
+    state: latest
+
+- name: Ensure supervisor configuration directories exists
+  file:
+    path: /etc/supervisor/conf.d
+    state: directory
+
+- name: Check for supervisord configuration
+  stat:
+    path: /etc/supervisor/supervisord.conf
+  register: conf
+
+- name: Generate supervisord configuration
+  shell: echo_supervisord_conf >> /etc/supervisor/supervisord.conf
+  when: conf.stat.exists == False
+
+- name: Update supervisord configuration to include applications configs
+  blockinfile:
+    path: /etc/supervisor/supervisord.conf
+    state: present
+    marker: ';{mark}'
+    block: |
+      [include]
+      files=conf.d/*.conf
+
+- name: Create the supervisor service
+  template:
+    src: supervisord.service.j2
+    dest: /etc/systemd/system/supervisord.service
+    owner: root
+    group: root
+
+- name: Activate the supervisor service
+  systemd:
+    name: supervisord
+    state: started
+    daemon_reload: yes
