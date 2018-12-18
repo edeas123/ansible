@@ -1,0 +1,19 @@
+---
+# tasks file for roles/blogextractor-deploy
+
+- name: Checkout the latest source code
+  git:
+    repo: https://github.com/edeas123/blogextractor.git
+    dest: /project
+
+- name: Copy supervisord configuration to its config directory
+  copy:
+    remote_src: yes
+    src: /project/supervisord.conf
+    dest: /etc/supervisor/conf.d/blogextractor.conf
+  notify: Reload systemd
+
+- name: Install the requirements
+  pip:
+    chdir: /project
+    requirements: requirements.txt

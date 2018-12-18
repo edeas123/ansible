@@ -5,4 +5,5 @@
   become: true
   roles:
     - role: base-server
-    - role: docker-server
+    - role: supervisor
+    - role: blogextractor-deploy
