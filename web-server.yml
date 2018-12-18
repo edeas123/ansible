@@ -5,8 +5,8 @@
   become: true
   roles:
     - role: base-server
+    - role: aws-node
     - role: web-server
-    - role: docker-server
 
   tasks:  
     - name: Copy index file from S3
