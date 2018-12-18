@@ -1,4 +1,6 @@
 # vars file for roles/base-server
 
 apt_packages:
+  - python-setuptools
   - python3-pip
+  - python-pip
