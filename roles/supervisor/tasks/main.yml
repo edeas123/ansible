@@ -18,15 +18,7 @@
 - name: Generate supervisord configuration
   shell: echo_supervisord_conf >> /etc/supervisor/supervisord.conf
   when: conf.stat.exists == False
-
-- name: Update supervisord configuration to include applications configs
-  blockinfile:
-    path: /etc/supervisor/supervisord.conf
-    state: present
-    marker: ';{mark}'
-    block: |
-      [include]
-      files=conf.d/*.conf
+  notify: Include applications supervisor config
 
 - name: Create the supervisor service
   template:
@@ -35,8 +27,7 @@
     owner: root
     group: root
 
-- name: Activate the supervisor service
-  systemd:
+- name: Start supervisor
+  service:
     name: supervisord
     state: started
-    daemon_reload: yes

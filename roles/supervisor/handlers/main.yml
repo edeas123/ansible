@@ -1,7 +1,10 @@
 ---
 # handlers file for roles/supervisor
 
-- name: Reload systemd
+- name: Include applications supervisor config
+  shell: printf "\n[include]\nfiles=conf.d/*.conf" >> /etc/supervisor/supervisord.conf
+
+- name: Restart supervisor
   systemd:
     name: supervisord
     state: restarted
