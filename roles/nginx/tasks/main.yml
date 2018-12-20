@@ -1,0 +1,20 @@
+---
+# tasks file for roles/nginx
+- name: Install nginx
+  apt:
+    name: nginx
+    state: latest
+    update_cache: yes
+
+- name: Update nginx user to root
+  replace:
+    path: /etc/nginx/nginx.conf
+    regexp: '^user www-data'
+    replace: 'user root'
+  notify: Restart nginx
+
+- name: Remove default configuration
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: Restart nginx
