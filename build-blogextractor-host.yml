@@ -1,0 +1,10 @@
+- import_playbook: bootstrap.yml
+
+- hosts: blogextractors
+  remote_user: ubuntu
+  become: true
+  roles:
+    - role: base-server
+    - role: nginx
+    - role: supervisor
+    - role: blogextractor

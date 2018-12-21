@@ -4,6 +4,4 @@
   remote_user: ubuntu
   become: true
   roles:
-    - role: base-server
-    - role: supervisor
-    - role: blogextractor-deploy
+    - role: blogextractor
