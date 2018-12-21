@@ -1,0 +1,13 @@
+---
+# handlers file for roles/blogextractor
+
+- name: Restart supervisor
+  systemd:
+    name: supervisord
+    state: restarted
+    daemon_reload: yes
+
+- name: Restart nginx
+  service:
+    name: nginx
+    state: restarted

@@ -1,0 +1,34 @@
+---
+# tasks file for roles/blogextractor-deploy
+
+- name: Checkout the latest source code
+  git:
+    repo: https://github.com/edeas123/blogextractor.git
+    dest: /project
+    force: yes
+
+- name: Install the requirements
+  pip:
+    chdir: /project
+    requirements: requirements.txt
+
+- name: Ensure uwsgi log directory exists
+  file:
+    path: /var/log/uwsgi
+    state: directory
+
+- name: Copy supervisord configuration to its config directory
+  copy:
+    remote_src: yes
+    src: /project/supervisord.conf
+    dest: /etc/supervisor/conf.d/blogextractor.conf
+  notify: Restart supervisor
+
+- name: Copy nginx configuration to its config directory
+  copy:
+    remote_src: yes
+    src: /project/nginx.conf
+    dest: /etc/nginx/sites-enabled/blogextractor.conf
+  notify: 
+    - Stop nginx
+    - Restart supervisor
