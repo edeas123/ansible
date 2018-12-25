@@ -7,6 +7,9 @@ apt_packages:
   - curl
   - software-properties-common
 
+pip_packages:
+  - docker
+
 docker_apt_repository: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
 docker_fingerprint: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
 docker_key_url: https://download.docker.com/linux/ubuntu/gpg
