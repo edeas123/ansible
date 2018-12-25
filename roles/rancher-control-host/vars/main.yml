@@ -1,0 +1,6 @@
+---
+# vars file for roles/rancher-control-host
+rancher_db_host: rancherdb.mybytesni.com
+rancher_db_user: rancheruser
+rancher_db_password: rancherpassword
+rancher_db_name: rancherdb

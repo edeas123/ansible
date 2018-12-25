@@ -1,0 +1,8 @@
+- import_playbook: bootstrap.yml
+
+- hosts: rancherctl
+  become: true
+  roles:
+    - role: base-server
+    - role: docker-server
+    - role: rancher-control-host

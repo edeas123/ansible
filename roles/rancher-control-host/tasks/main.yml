@@ -1,0 +1,13 @@
+---
+# tasks file for roles/rancher-control-host
+
+- name: Launch the rancher server - full active/active HA
+  docker_container:
+    name: rancher
+    image: rancher/server
+    command: "--db-host  {{ rancher_db_host }} --db-port 3306 --db-user {{ rancher_db_user }} --db-pass {{ rancher_db_password }} --db-name {{ rancher_db_name }} --advertise-address {{ ansible_host }}"
+    restart_policy: unless-stopped
+    detach: yes
+    published_ports:
+      - 9345:9345
+      - 8080:8080
