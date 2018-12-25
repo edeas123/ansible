@@ -7,4 +7,4 @@
     - role: base-server
     - role: nginx
     - role: supervisor
-    - role: blogextractor
+    - role: blogextractor-host

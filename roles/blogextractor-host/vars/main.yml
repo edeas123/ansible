@@ -1,0 +1,3 @@
+# vars file for roles/blogextractor-host
+
+blogextractor_repository: https://github.com/edeas123/blogextractor.git
