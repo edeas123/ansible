@@ -1,5 +1,7 @@
 ---
 # tasks file for roles/rancher-control-host
+- name: Include secrets file
+  include_vars: secret.yml
 
 - name: Launch the rancher server - full active/active HA
   docker_container:

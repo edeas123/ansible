@@ -1,6 +1,0 @@
----
-# vars file for roles/rancher-control-host
-rancher_db_host:
-rancher_db_user:
-rancher_db_password:
-rancher_db_name:
