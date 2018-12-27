@@ -1,0 +1,41 @@
+---
+# tasks file for roles/rancher-container-host
+
+- name: Fetch the project
+  uri:
+    url: "{{ rancher_project_api }}"
+    method: GET
+    status_code: 200
+  register: project
+
+- name: Attempt to fetch the registration url
+  uri:
+    url: "{{ rancher_project_api }}/{{ project['json']['data'][0]['id'] }}/registrationTokens"
+    method: GET
+    status_code: 200
+  register: url
+  
+- name: Create the registration token if the registration url was not available from the previous step
+  uri:
+    url: "{{ rancher_project_api }}/{{ project['json']['data'][0]['id'] }}/registrationTokens"
+    method: POST
+    status_code: 201
+  when: url.json['data'] == []
+  
+- name: Fetch the registration url
+  uri:
+    url: "{{ rancher_project_api }}/{{ project['json']['data'][0]['id'] }}/registrationTokens"
+    method: GET
+    status_code: 200
+  register: url
+
+- name: Launch the rancher agent
+  docker_container:
+    name: i-rancher-agent
+    image: rancher/agent:{{rancher_agent_version}}
+    auto_remove: yes
+    privileged: yes
+    volumes: 
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/rancher:/var/lib/rancher
+    command: "{{ url.json['data'][0]['registrationUrl'] }}"

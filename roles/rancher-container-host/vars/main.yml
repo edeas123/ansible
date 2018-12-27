@@ -1,0 +1,4 @@
+---
+# vars file for roles/rancher-container-host
+rancher_agent_version: v1.2.11
+rancher_project_api: http://rancherctl.mybytesni.com/v1/projects
