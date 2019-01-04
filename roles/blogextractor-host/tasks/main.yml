@@ -3,7 +3,7 @@
 
 - name: Checkout the latest source code
   git:
-    repo: {{blogextractor_repository}}
+    repo: "{{ blogextractor_repository }}"
     dest: /project
     force: yes
 
