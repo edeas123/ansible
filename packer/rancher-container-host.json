@@ -29,7 +29,7 @@
       },
       {
         "type": "ansible",
-        "playbook_file": "../build-rancher-container-host.yml",
+        "playbook_file": "../ansible/build-rancher-container-host.yml",
         "host_alias": "rancher_container_host",
         "groups": ["rancher"],
         "user": "ubuntu",
