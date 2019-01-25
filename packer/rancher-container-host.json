@@ -1,0 +1,39 @@
+{
+  "builders": [
+      {
+          "ami_name": "rancher-container-host-ami",
+          "instance_type": "t2.micro",
+          "region": "us-east-2",
+          "source_ami_filter": {
+            "filters": {
+            "virtualization-type": "hvm",
+            "name": "ubuntu/images/*ubuntu-xenial-16.04-amd64-server-*",
+            "root-device-type": "ebs"
+            },
+            "owners": ["099720109477"],
+            "most_recent": true
+          },
+          "force_deregister": true,
+          "force_delete_snapshot": true,
+          "ssh_username": "ubuntu",
+          "type": "amazon-ebs",
+          "tags": {
+            "Name": "rancher-container-host-ami"
+          }
+      }
+  ],
+  "provisioners": [
+      {
+        "type": "shell",
+        "script": "scripts/ubuntu_wait_for_cloud_init.sh"
+      },
+      {
+        "type": "ansible",
+        "playbook_file": "../build-rancher-container-host.yml",
+        "host_alias": "rancher_container_host",
+        "groups": ["rancher"],
+        "user": "ubuntu",
+        "extra_arguments": ["--extra-vars", "amibuilder=true"]
+      }
+  ]
+}
