@@ -1,9 +1,14 @@
-[webservers]
-18.234.126.54
+[rancher:children]
+rancher_control_host
+rancher_container_host
 
-[playground]
+[rancher_control_host]
+rancherctl0.mybytesni.com
+rancherctl1.mybytesni.com
+rancherctl2.mybytesni.com
 
+[rancher_container_host]
 
 [blogextractors]
-18.206.61.21
-35.174.116.150
+blogextractor0.mybytesni.com
+blogextractor1.mybytesni.com
